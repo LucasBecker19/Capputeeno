@@ -21,7 +21,8 @@ export function useProducts() {
 
     const { data } = useQuery({
         queryFn: () => fetcher(query),
-        queryKey: ['products', type, priority] //Gerenciar cache das requisições
+        queryKey: ['products', type, priority], //Gerenciar cache das requisições
+        staleTime: 1000 * 60 * 1, //Não fazer novas requisições durante o período de 1 minuto
     });
 
     const products = data?.data?.data?.allProducts;

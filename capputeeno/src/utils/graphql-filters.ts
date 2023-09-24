@@ -41,9 +41,6 @@ export function mountQuery(type: FilterTypes, priority: PriorityTypes) {
     const sortSettings = getFieldByPriority(priority);
     const categoryFilter = getCategoryByType(type);
 
-    console.log('sortSettings', sortSettings);
-    console.log('categoryFilter', categoryFilter);
-
     return `
         query {
             allProducts( 

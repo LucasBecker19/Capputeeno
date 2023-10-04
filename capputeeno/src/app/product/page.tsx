@@ -2,7 +2,7 @@
 
 import { BackButton } from "@/components/back-button";
 import { DefaultPageLayout } from "@/components/default-page-layout";
-import { ShoppingBagIcon } from "@/components/icons/shopping-bag";
+import { AddCartButton } from "@/components/product/add-cart-button";
 import { ProductInfo } from "@/components/product/product-info";
 import { useProduct } from "@/hooks/useProduct";
 import { styled } from "styled-components";
@@ -29,61 +29,18 @@ const Container = styled.div`
             display: flex;
             justify-content: space-between;
             flex-direction: column;
-
-            button {
-                background: #115D8C;
-                border-radius: 4px;
-                color: white;
-                border: none;
-                cursor: pointer;
-                
-                text-align: center;
-                font-size: 16px;
-                font-weight: 500;
-                line-height: 150%;
-                text-transform: uppercase;
-                
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-                padding: 10px 0;
-            }
         }
     }
 `;
 
 export default function Product({ searchParams }: { searchParams: { id: string } }) {
     const { data } = useProduct(searchParams.id);
-    
-    const handleAddToCart = () => {
-        const cartItems = localStorage.getItem('cart-items');
 
-        if(cartItems) {
-            const cartItemsArray = JSON.parse(cartItems);
-
-            const existingProductIndex = cartItemsArray.findIndex((item: { id: string; }) => item.id === searchParams.id);
-            
-            if(existingProductIndex != -1) {
-                cartItemsArray[existingProductIndex].quantity += 1; 
-            } else {
-                cartItemsArray.push({ 
-                    ...data, 
-                    id: searchParams.id, 
-                    quantity: 1 
-                });
-            }
-
-            localStorage.setItem('cart-items', JSON.stringify(cartItemsArray));
-        } else {
-            const newCart = [{
-                ...data,
-                id: searchParams.id,
-                quantity: 1
-            }];
-
-            localStorage.setItem('cart-items', JSON.stringify(newCart));
-        }
+    const params = {
+        category: data?.category,
+        name: data?.name,
+        price: data?.price_in_cents,
+        description: data?.description,
     }
 
     return (
@@ -94,17 +51,12 @@ export default function Product({ searchParams }: { searchParams: { id: string }
                     <img src={data?.image_url} alt="Imagem do produto" />
 
                     <div>
-                        <ProductInfo 
-                            category={data?.category}
-                            name={data?.name}
-                            price={data?.price_in_cents}
-                            description={data?.description}
-                        />
+                        <ProductInfo {...params} />
 
-                        <button onClick={handleAddToCart}>
-                            <ShoppingBagIcon/>
-                            Adicionar ao carrinho
-                        </button>
+                        <AddCartButton 
+                            {...params} 
+                            id={searchParams.id} 
+                        />
                     </div>
                 </section>
             </Container>

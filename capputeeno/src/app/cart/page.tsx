@@ -8,6 +8,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ProductInCart } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
 import styled from "styled-components";
+import { HelpLinks } from "./help-links";
 
 const Container = styled.div`
     display: flex;
@@ -109,24 +110,6 @@ const ShopBtn = styled.button`
     font-weight: 500;
 `;
 
-const HelpLinksContainer = styled.div`
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 40px;
-
-    span {
-        color: var(--text-dark);
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 150%;
-        text-decoration-line: underline;
-        text-transform: uppercase;
-        cursor: pointer;
-    }
-`;
-
 export default function CartPage() {
     const { value, updateLocalStorage } = useLocalStorage<ProductInCart[]>("cart-items", []);
 
@@ -205,12 +188,7 @@ export default function CartPage() {
                         <ShopBtn>Finalizar a compra</ShopBtn>
                     </div>
 
-                    <HelpLinksContainer>
-                        <span>Ajuda</span>
-                        <span>Reembolsos</span>
-                        <span>Entregas e frete</span>
-                        <span>Trocas e devoluções</span>
-                    </HelpLinksContainer>
+                    <HelpLinks/>
                 </CartResultContainer>
             </Container>
         </DefaultPageLayout>

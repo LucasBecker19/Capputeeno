@@ -4,9 +4,9 @@ import { styled } from "styled-components"
 import { Divider } from "./divider";
 
 interface ProductCardProps {
-    image: string,
+    image_url: string,
     title: string,
-    price: number,
+    price_in_cents: number,
     id: string
 }
 
@@ -55,7 +55,7 @@ const Card = styled.div`
 `;
 
 export function ProductCard(props: ProductCardProps) {
-    const formattedPrice = formatPrice(props.price);
+    const formattedPrice = formatPrice(props.price_in_cents);
     const router = useRouter();
 
     const handleNavigate = () => {
@@ -64,7 +64,7 @@ export function ProductCard(props: ProductCardProps) {
 
     return (
         <Card onClick={handleNavigate}>
-            <img src={props.image} alt="Product image"/>
+            <img src={props.image_url} alt="Product image"/>
             
             <div>
                 <h3>{props.title}</h3>

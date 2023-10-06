@@ -39,8 +39,9 @@ export default function Product({ searchParams }: { searchParams: { id: string }
     const params = {
         category: data?.category,
         name: data?.name,
-        price: data?.price_in_cents,
+        price_in_cents: data?.price_in_cents,
         description: data?.description,
+        image_url: data?.image_url
     }
 
     return (

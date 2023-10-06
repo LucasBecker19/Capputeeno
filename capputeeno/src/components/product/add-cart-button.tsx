@@ -4,9 +4,10 @@ import { ShoppingBagIcon } from "../icons/shopping-bag"
 interface AddCartButtonProps {
     category?: string,
     name?: string,
-    price?: number,
+    price_in_cents?: number,
     description?: string,
-    id?: string
+    id?: string,
+    image_url?: string
 }
 
 const Button = styled.button`

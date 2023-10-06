@@ -4,7 +4,7 @@ import { formatPrice } from "@/utils/format-price";
 interface ProductInfoProps {
     category?: string,
     name?: string,
-    price?: number,
+    price_in_cents?: number,
     description?: string
 }
 
@@ -63,7 +63,7 @@ export function ProductInfo(props: ProductInfoProps) {
         <Container>
             <span>{props?.category}</span>
             <h2>{props?.name}</h2>
-            <span>{formatPrice(props?.price ?? 0)}</span>
+            <span>{formatPrice(props?.price_in_cents ?? 0)}</span>
 
             <p>*Frete de R$40,00 para todo o Brasil. Grátis para compras acima de R$900,00.</p>
 

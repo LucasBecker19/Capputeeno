@@ -1,7 +1,5 @@
 "use client"
 
-import { BackButton } from "@/components/back-button";
-import { CartItem } from "@/components/cart/cart-item";
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { Divider } from "@/components/divider";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -9,6 +7,7 @@ import { ProductInCart } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
 import styled from "styled-components";
 import { HelpLinks } from "./help-links";
+import { CartList } from "./cart-list";
 
 const Container = styled.div`
     display: flex;
@@ -20,38 +19,6 @@ const Container = styled.div`
     @media(min-width: ${props => props.theme.desktopBreakpoint}) {
         flex-direction: row;
     }
-`;
-
-const CartListContainer = styled.div`
-    h3 {
-        font-size: 16px;
-        font-weight: 500;
-        text-transform: uppercase;
-        color: var(--text-dark-02);
-        line-height: 150%;
-
-        margin-top: 24px;
-    }
-
-    p {
-        font-weight: 300;
-        line-height: 150%;
-        color: var(--text-dark-02);
-
-        span {
-            font-weight: 600;
-            margin-left: 4px;
-        }
-    }
-`;
-
-const CartList = styled.ul`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 24px;
 `;
 
 const CartResultContainer = styled.div`
@@ -144,25 +111,12 @@ export default function CartPage() {
     return (
         <DefaultPageLayout>
             <Container>
-                <CartListContainer>
-                    <BackButton navigate="/"/>
-                    <h3>Seu carrinho</h3>
-                    <p>
-                        Total ({value.length} {value.length === 1 ? 'produto' : 'produtos'})
-                        <span>{cartTotal}</span>
-                    </p>
-
-                    <CartList>
-                        {value.map(item => 
-                            <CartItem 
-                                product={item} 
-                                key={item.id} 
-                                handleUpdateQuantity={handleUpdateQuantity} 
-                                handleDelete={handleDelete}
-                            />
-                        )}
-                    </CartList>
-                </CartListContainer>
+                <CartList  
+                    products={value}
+                    cartTotal={cartTotal}
+                    handleUpdateQuantity={handleUpdateQuantity}
+                    handleDelete={handleDelete}
+                />
 
                 <CartResultContainer>
                     <div>
